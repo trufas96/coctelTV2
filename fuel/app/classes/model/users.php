@@ -8,15 +8,15 @@ class Model_Users extends Orm\Model
      'userName' => array(
             'data_type' => 'varchar',
             'validation' => array('required', 'max_length' => array(100))
-        ),
+            ),
      'surName' => array(
             'data_type' => 'varchar',
             'validation' => array('required', 'max_length' => array(100))
-        ),
+            ),
      'born' => array(
             'data_type' => 'varchar',
             'validation' => array('required', 'max_length' => array(100))
-        ),
+            ),
      'email' => array(
                 'data_type' => 'varchar',
                 'validation' => array('required', 'max_length' => array(100))   
@@ -32,7 +32,7 @@ class Model_Users extends Orm\Model
      'id_role' => array(
                 'data_type' => 'int',
                 'validation' => array('required', 'max_length' => array(100))
-                ),
+            ),
      'profilePicture' => array(
                 'data_type' => 'varchar',
                 'validation' => array('max_length' => array(500))   
@@ -40,11 +40,11 @@ class Model_Users extends Orm\Model
      'x' => array(
                 'data_type' => 'varchar',
                 'validation' => array('max_length' => array(100))
-                ),
+            ),
      'y' => array(
                 'data_type' => 'varchar',
                 'validation' => array('max_length' => array(100))
-                )
+            )
 
     );
     protected static $_belongs_to = array(
@@ -58,14 +58,14 @@ class Model_Users extends Orm\Model
     ); 
 
     protected static $_has_many = array(
-    'animals' => array(
+    'locals' => array(
         'key_from' => 'id',
         'model_to' => 'Model_Locals',
         'key_to' => 'id_user',
         'cascade_save' => true,
         'cascade_delete' => true,
         ),
-    'story' => array(
+    'recetas' => array(
         'key_from' => 'id',
         'model_to' => 'Model_Recetas',
         'key_to' => 'id_user',

@@ -12,19 +12,19 @@ public function post_create()
       
           try 
           {
-             //photo
+            //photo
             /* if (!isset($_FILES['profilePReceta']) || empty($_FILES['profilePReceta'])) 
-             {
-                        $arrayData = array();
-                        $arrayData['files'] = $_FILES;
-                        $arrayData['post'] = $_POST; 
-                           $json = $this->response(array(
-                               'code' => 400,
-                               'message' => 'La profilPReceta esta vacia',
-                               'data' =>  $arrayData
-                           ));
-                           return $json;
-              }*/
+            {
+                      $arrayData = array();
+                      $arrayData['files'] = $_FILES;
+                      $arrayData['post'] = $_POST; 
+                        $json = $this->response(array(
+                            'code' => 400,
+                            'message' => 'La profilPReceta esta vacia',
+                            'data' =>  $arrayData
+                        ));
+                        return $json;
+            }*/
 
               //name
               if(!isset($_POST['name']) || empty($_POST['name']))
@@ -178,16 +178,16 @@ public function post_create()
                   ));
               }*/
                   
-                         $newReceta = $this->newReceta($_POST, /*$photoToSave,*/ $decodedToken);
-                         $json = $this->saveReceta($newReceta);
-                         return $json;
+                        $input = $_POST;
+                        $newReceta = $this->newReceta($input);
+                        $json = $this->saveReceta($newReceta);
           }
 
           catch (Exception $e)
           {
               $json = $this->response(array(
                       'code' => 500,
-                      'message' => "TRYCATCH ::: ".$e->getMessage(),
+                      'message' => 'error de servidor',
                       'data' => $file 
 
               ));
@@ -201,28 +201,28 @@ public function post_create()
 
 private function newReceta($input)
 {
-  $receta = Model_Recetas();
-  $receta->name = $input['name'];
-  $receta->ingrediente1 = $input['ingrediente1'];
-  $receta->ingrediente2 = $input['ingrediente2'];
-  $receta->ingrediente3 = $input['ingrediente3'];
-  $receta->ingrediente4 = $input['ingrediente4'];
-  $receta->ingrediente5 = $input['ingrediente5'];
-  $receta->ingrediente6 = $input['ingrediente6'];
-  $receta->ingrediente7 = $input['ingrediente7'];
-  $receta->ingrediente8 = $input['ingrediente8'];
-  $receta->ingrediente9 = $input['ingrediente9'];
-  $receta->ingrediente10 = $input['ingrediente10'];
-  $receta->profilPReceta = "";
-  return $receta;
+  $recetas = Model_Recetas();
+  $recetas->name = $input['name'];
+  $recetas->ingrediente1 = $input['ingrediente1'];
+  $recetas->ingrediente2 = $input['ingrediente2'];
+  $recetas->ingrediente3 = $input['ingrediente3'];
+  $recetas->ingrediente4 = $input['ingrediente4'];
+  $recetas->ingrediente5 = $input['ingrediente5'];
+  $recetas->ingrediente6 = $input['ingrediente6'];
+  $recetas->ingrediente7 = $input['ingrediente7'];
+  $recetas->ingrediente8 = $input['ingrediente8'];
+  $recetas->ingrediente9 = $input['ingrediente9'];
+  $recetas->ingrediente10 = $input['ingrediente10'];
+  $recetas->profilPReceta = "";
+  return $recetas;
 }
 
 
-private function saveReceta($receta)
+private function saveReceta($recetas)
 {
     $recetaExists = Model_Recetas::find('all', 
             array('where' => array(
-                 array('name', '=', $receta->name),
+                 array('name', '=', $recetas->name),
                   )
              )
            );
@@ -231,7 +231,7 @@ private function saveReceta($receta)
         $recetaToSave = $receta;
         $recetaToSave->save();
         $arrayData = array();
-        $arrayData['name'] = $receta->name;
+        $arrayData['name'] = $recetas->name;
         return $this->respuesta(201, 'Receta creado', $arrayData);
     }
     else

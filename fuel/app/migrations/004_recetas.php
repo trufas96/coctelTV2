@@ -7,7 +7,7 @@ class Recetas
 
     function up()
     {
-        \DBUtil::create_table('Recetas', 
+        \DBUtil::create_table('recetas', 
             array(
                 'id' => array('type' => 'int', 'constraint' => 100,'auto_increment' => true),
                 'name' => array('type' => 'varchar', 'constraint' => 500),

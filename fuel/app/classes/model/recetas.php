@@ -1,7 +1,7 @@
 <?php
 class Model_Recetas extends Orm\Model 
 {
-    protected static $_table_name = 'Recetas';
+    protected static $_table_name = 'recetas';
     protected static $_primary_key = array('id');
     protected static $_properties = array
     ('id' => array('data_type'=>'int'), // both validation & typing observers will ignore the PK
