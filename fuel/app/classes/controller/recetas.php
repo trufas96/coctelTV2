@@ -13,7 +13,7 @@ public function post_create()
           try 
           {
             //photo
-            /* if (!isset($_FILES['profilePReceta']) || empty($_FILES['profilePReceta'])) 
+            if (!isset($_FILES['profilePReceta']) || empty($_FILES['profilePReceta'])) 
             {
                       $arrayData = array();
                       $arrayData['files'] = $_FILES;
@@ -24,7 +24,7 @@ public function post_create()
                             'data' =>  $arrayData
                         ));
                         return $json;
-            }*/
+            }
 
               //name
               if(!isset($_POST['name']) || empty($_POST['name']))
@@ -152,7 +152,7 @@ public function post_create()
               }
 
 
-              /*$config = array(
+              $config = array(
                   'path' => DOCROOT . 'assets/img',
                   'randomize' => true,
                   'ext_whitelist' => array('img', 'jpg', 'jpeg', 'gif', 'png'),
@@ -176,7 +176,7 @@ public function post_create()
                       'message' => 'Error en el servidor',
                       'data' => $file 
                   ));
-              }*/
+              }
                   
                         $input = $_POST;
                         $newReceta = $this->newReceta($input);
@@ -188,7 +188,7 @@ public function post_create()
               $json = $this->response(array(
                       'code' => 500,
                       'message' => 'error de servidor',
-                      'data' => $file 
+                      'data' => '' 
 
               ));
               return $json;
@@ -201,7 +201,7 @@ public function post_create()
 
 private function newReceta($input)
 {
-  $recetas = Model_Recetas();
+  $recetas = new Model_Recetas();
   $recetas->name = $input['name'];
   $recetas->ingrediente1 = $input['ingrediente1'];
   $recetas->ingrediente2 = $input['ingrediente2'];
@@ -250,8 +250,7 @@ public function get_download()
       if($arrayAuthenticated['authenticated'])
       {
         $decodedToken = $this->decode($arrayAuthenticated['data']);
-            if ($decodedToken->id != 1)
-            {
+            
 
               $recetas = Model_Recetas::find('all');
                 if(!empty($recetas))
@@ -276,11 +275,7 @@ public function get_download()
                   ));
                 return $json;
                 }
-            }
-            else
-            {
-              return $this->respuesta(400, 'Eres el admin', '');
-            }
+           
       }
 }  
 
