@@ -12,20 +12,7 @@ public function post_create()
       
           try 
           {
-            //photo
-            if (!isset($_FILES['profilePReceta']) || empty($_FILES['profilePReceta'])) 
-            {
-                      $arrayData = array();
-                      $arrayData['files'] = $_FILES;
-                      $arrayData['post'] = $_POST; 
-                        $json = $this->response(array(
-                            'code' => 400,
-                            'message' => 'La profilPReceta esta vacia',
-                            'data' =>  $arrayData
-                        ));
-                        return $json;
-            }
-
+            
               //name
               if(!isset($_POST['name']) || empty($_POST['name']))
               {
@@ -151,6 +138,20 @@ public function post_create()
                            return $json;
               }
 
+              //photo
+            if (!isset($_FILES['profilePReceta']) || empty($_FILES['profilePReceta'])) 
+            {
+                      $arrayData = array();
+                      $arrayData['files'] = $_FILES;
+                      $arrayData['post'] = $_POST; 
+                        $json = $this->response(array(
+                            'code' => 400,
+                            'message' => 'La profilPReceta esta vacia',
+                            'data' =>  $arrayData
+                        ));
+                        return $json;
+            }
+
 
               $config = array(
                   'path' => DOCROOT . 'assets/img',
@@ -159,7 +160,7 @@ public function post_create()
               );
 
               Upload::process($config);
-              $photoToSave = $profilPReceta;
+              $photoToSave = "";
               if (Upload::is_valid())
               {
                   Upload::save();
@@ -213,19 +214,14 @@ private function newReceta($input)
   $recetas->ingrediente8 = $input['ingrediente8'];
   $recetas->ingrediente9 = $input['ingrediente9'];
   $recetas->ingrediente10 = $input['ingrediente10'];
-  $recetas->profilPReceta = "";
+  //$recetas->profilPReceta = "";
   return $recetas;
 }
 
 
 private function saveReceta($recetas)
 {
-    $recetaExists = Model_Recetas::find('all', 
-            array('where' => array(
-                 array('name', '=', $recetas->name),
-                  )
-             )
-           );
+    $recetaExists = Model_Recetas::find('all');
     if(empty($recetaExists))
     {
         $recetaToSave = $receta;
@@ -277,7 +273,8 @@ public function get_download()
                 }
            
       }
-}  
+}
+  
 
 
 }
