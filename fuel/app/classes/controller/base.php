@@ -33,7 +33,7 @@ class Controller_Base extends Controller_Rest
                 "id" => $id,
                 "userName" => $userName,
                 "password" => $password,
-                "email" => $email,
+                "email" => $email
         );
         $encodedToken = JWT::encode($token, $this->key);
         return $encodedToken;

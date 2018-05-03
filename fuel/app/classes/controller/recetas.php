@@ -139,20 +139,6 @@ public function post_create()
               }
 
               //photo
-            if (!isset($_FILES['profilePReceta']) || empty($_FILES['profilePReceta'])) 
-            {
-                      $arrayData = array();
-                      $arrayData['files'] = $_FILES;
-                      $arrayData['post'] = $_POST; 
-                        $json = $this->response(array(
-                            'code' => 400,
-                            'message' => 'La profilPReceta esta vacia',
-                            'data' =>  $arrayData
-                        ));
-                        return $json;
-            }
-
-
               $config = array(
                   'path' => DOCROOT . 'assets/img',
                   'randomize' => true,
@@ -178,6 +164,19 @@ public function post_create()
                       'data' => $file 
                   ));
               }
+
+              if (!isset($_FILES['profilePReceta']) || empty($_FILES['profilePReceta'])) 
+            {
+                      $arrayData = array();
+                      $arrayData['files'] = $_FILES;
+                      $arrayData['post'] = $_POST; 
+                        $json = $this->response(array(
+                            'code' => 400,
+                            'message' => 'La profilPReceta esta vacia',
+                            'data' =>  $arrayData
+                        ));
+                        return $json;
+            }
                   
                         $input = $_POST;
                         $newReceta = $this->newReceta($input);
@@ -214,7 +213,7 @@ private function newReceta($input)
   $recetas->ingrediente8 = $input['ingrediente8'];
   $recetas->ingrediente9 = $input['ingrediente9'];
   $recetas->ingrediente10 = $input['ingrediente10'];
-  //$recetas->profilPReceta = "";
+  $recetas->profilPReceta = "";
   return $recetas;
 }
 
@@ -238,7 +237,7 @@ private function saveReceta($recetas)
 
 
 //update
-public function get_download()
+public function get_show()
 {
 
       $authenticated = $this->authenticate();
