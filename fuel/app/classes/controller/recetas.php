@@ -8,7 +8,7 @@ public function post_create()
     $arrayAuthenticated = json_decode($authenticated, true);
      if($arrayAuthenticated['authenticated'])
      {
-      $decodedToken = $this->decode($arrayAuthenticated['data']);
+      //$decodedToken = $this->decode($arrayAuthenticated['data']);
       
           try 
           {

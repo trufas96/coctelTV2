@@ -10,8 +10,7 @@ class Controller_Locals extends Controller_Base
      if($arrayAuthenticated['authenticated'])
      {
       $decodedToken = $this->decode($arrayAuthenticated['data']);
-      if ($decodedToken->id == $this->id_admin)
-      {
+     
           try 
           {
               //name
@@ -186,11 +185,7 @@ class Controller_Locals extends Controller_Base
           {
                          return $this->respuesta(500, $e->getMessage(), '');
           }
-        }
-        else 
-        {
-                return $this->respuesta(400, 'No eres el admin', '');
-        }
+        
     }     
 }
 
@@ -202,7 +197,7 @@ class Controller_Locals extends Controller_Base
 
   private function newLocals($input)
   {
-      $local = Model_Locals();
+      $local = new Model_Locals();
       $local->name = $input['name'];
       $local->direction = $input['direction'];
       $local->profilePLocal = "";
