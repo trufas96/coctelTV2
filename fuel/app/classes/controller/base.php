@@ -44,7 +44,7 @@ class Controller_Base extends Controller_Rest
         $token = $header['Authorization'];
         if(!empty($token))
         {
-            $decodedToken = JWT::decode($token, $this->key, array('HS256'));
+            $decodedToken = JWT::decode($token, self::$secret_key, array('HS256'));
             return $decodedToken;
         }      
     }

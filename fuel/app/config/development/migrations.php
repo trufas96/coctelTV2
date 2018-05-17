@@ -10,6 +10,7 @@ return array(
         1 => '002_users',
         2 => '003_locals',
         3 => '004_recetas',
+        4 => '005_filtros',
       ),
     ),
     'module' => 

@@ -1,4 +1,5 @@
 <?php
+use Firebase\JWT\JWT;
 class Controller_recetas extends Controller_Base
 {
    
@@ -8,11 +9,22 @@ public function post_create()
     $arrayAuthenticated = json_decode($authenticated, true);
      if($arrayAuthenticated['authenticated'])
      {
-      //$decodedToken = $this->decode($arrayAuthenticated['data']);
+      $decodedToken = $this->decodeToken();
       
           try 
-          {
-            
+          {          
+           if (!isset($_FILES['profilePReceta']) || empty($_FILES['profilePReceta'])) 
+            {
+                      $arrayData = array();
+                      $arrayData['files'] = $_FILES;
+                      $arrayData['post'] = $_POST; 
+                        $json = $this->response(array(
+                            'code' => 400,
+                            'message' => 'La profilPReceta esta vacia',
+                            'data' =>  $arrayData
+                        ));
+                        return $json;
+            } 
               //name
               if(!isset($_POST['name']) || empty($_POST['name']))
               {
@@ -165,18 +177,7 @@ public function post_create()
                   ));
               }
 
-              if (!isset($_FILES['profilePReceta']) || empty($_FILES['profilePReceta'])) 
-            {
-                      $arrayData = array();
-                      $arrayData['files'] = $_FILES;
-                      $arrayData['post'] = $_POST; 
-                        $json = $this->response(array(
-                            'code' => 400,
-                            'message' => 'La profilPReceta esta vacia',
-                            'data' =>  $arrayData
-                        ));
-                        return $json;
-            }
+             
                   
                         $input = $_POST;
                         $newReceta = $this->newReceta($input);

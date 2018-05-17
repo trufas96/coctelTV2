@@ -1,4 +1,5 @@
 <?php
+use Firebase\JWT\JWT;
 class Controller_Locals extends Controller_Base
 {
    
@@ -212,7 +213,7 @@ class Controller_Locals extends Controller_Base
       $local->x = $input['x'];
       $local->y = $input['y'];
       $local->id_type = $input['id_type'];
-      $local->id_user = $this->id_admin;
+      
       return $local;
   }
 
