@@ -5,14 +5,14 @@ class Controller_filtros extends Controller_Base
    
 public function post_create()
 {
-    $authenticated = $this->authenticate();
+    /*$authenticated = $this->authenticate();
     $arrayAuthenticated = json_decode($authenticated, true);
      if($arrayAuthenticated['authenticated'])
      {
       $decodedToken = $this->decodeToken();
-      
-          try 
-          {          
+      */
+          /*try 
+          { */         
               //name
               if(!isset($_POST['name']) || empty($_POST['name']))
               {
@@ -25,10 +25,9 @@ public function post_create()
               }
 
                         $input = $_POST;
-                        $newReceta = $this->newReceta($input);
-                        $json = $this->saveReceta($newReceta);
-          }
-
+                        $newFiltros = $this->newFiltros($input);
+                        $json = $this->saveFiltros($newFiltros);
+          /*}
           catch (Exception $e)
           {
               $json = $this->response(array(
@@ -38,35 +37,35 @@ public function post_create()
 
               ));
               return $json;
-              }
+          }
    
         
-    }     
+    /*}     */
 }
 
 
-private function newReceta($input)
+private function newFiltros($input)
 {
-  $recetas = new Model_Recetas();
-  $recetas->name = $input['name'];
-  return $recetas;
+  $filtros = new Model_Filtros();
+  $filtros->name = $input['name'];
+  return $filtros;
 }
 
 
-private function saveReceta($recetas)
+private function saveFiltros($filtros)
 {
-    $recetaExists = Model_Recetas::find('all');
-    if(empty($recetaExists))
+    $filtroExists = Model_Filtros::find('all');
+    if(empty($filtroExists))
     {
-        $recetaToSave = $receta;
-        $recetaToSave->save();
+        $filtrosToSave = $filtro;
+        $filtrosToSave->save();
         $arrayData = array();
-        $arrayData['name'] = $recetas->name;
-        return $this->respuesta(201, 'Receta creado', $arrayData);
+        $arrayData['name'] = $filtros->name;
+        return $this->respuesta(201, 'filtro creado', $arrayData);
     }
     else
     {
-    return $this->respuesta(204, 'Receta ya creado', '');
+    return $this->respuesta(204, 'filtro ya creado', '');
     }
 }
 
@@ -75,38 +74,37 @@ private function saveReceta($recetas)
 public function get_show()
 {
 
-      $authenticated = $this->authenticate();
+      /*$authenticated = $this->authenticate();
       $arrayAuthenticated = json_decode($authenticated, true);
       if($arrayAuthenticated['authenticated'])
       {
-        $decodedToken = $this->decode($arrayAuthenticated['data']);
+        $decodedToken = $this->decode($arrayAuthenticated['data']);*/
             
 
-              $recetas = Model_Recetas::find('all');
-                if(!empty($recetas))
-                {
-                  foreach ($recetas as $key => $receta) 
+              $filtros = Model_Filtros::find('all');
+              if(!empty($filtros))
+              {
+                  foreach ($filtros as $key => $filtro) 
                   {
-                    $arrayreceta[] = $receta;
+                    $arrayfiltro[] = $filtro;
                   }
                   $json = $this->response(array(
                     'code' => 200,
-                    'message' => 'mostrando lista de recetas del usuario', 
-                    'data' => $arrayreceta
+                    'message' => 'mostrando lista de filtros del usuario', 
+                    'data' => $arrayfiltro
                     )); 
                     return $json; 
-                }
-                else
-                {
+            }
+            else
+            {
                   $json = $this->response(array(
                     'code' => 202,
-                    'message' => 'Aun no tienes ningun receta',
+                    'message' => 'Aun no tienes ningun filtro',
                     'data' => ''
                   ));
                 return $json;
-                }
-           
-      }
+            }     
+      //}
 }
   
 
